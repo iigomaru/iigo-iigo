@@ -36,13 +36,7 @@ float iigo_AA(float2 input)
 void iigo_ComputeFlat(out float3 directLight)
 {
     #if !defined(LIGHTMAP_ON) && UNITY_SHOULD_SAMPLE_SH
-        //directLight   = float3(unity_SHAr.w,unity_SHAg.w,unity_SHAb.w);
-        directLight.r = max(unity_SHAr.w, unity_SHBr.w);
-        directLight.g = max(unity_SHAg.w, unity_SHBg.w);
-        directLight.b = max(unity_SHAb.w, unity_SHBb.w);
-        directLight.r = max(directLight.r, unity_SHC.r);
-        directLight.g = max(directLight.g, unity_SHC.g);
-        directLight.b = max(directLight.b, unity_SHC.b);
+        directLight   =  float3(unity_SHAr.w + unity_SHBr.z/3, unity_SHAg.w + unity_SHBg.z/3, unity_SHAb.w + unity_SHBb.z/3); // thx lox
     #else
         directLight = 0.0;
     #endif
