@@ -131,10 +131,10 @@
                 #define iigo_texture_TEXTURE _MainTexRed
                 #define iigo_texture_EMISSION _EmissionRed
 
-            #define iigo_matCap_ENABLED
-                #define iigo_matCap_BORDER _BorderRed
-                #define iigo_matCap_TEXTURE _MatCapRed
-                #define iigo_matCap_EMISSION _EmissionRed
+            //#define iigo_matCap_ENABLED
+                //#define iigo_matCap_BORDER _BorderRed
+                //#define iigo_matCap_TEXTURE _MatCapRed
+                //#define iigo_matCap_EMISSION _EmissionRed
 
             #define iigo_rimlight_ENABLED
                 #define iigo_rimlight_POWER _RimPowerRed
@@ -166,10 +166,10 @@
                 #define iigo_texture_TEXTURE _MainTexRed
                 #define iigo_texture_EMISSION _EmissionRed
 
-            #define iigo_matCap_ENABLED
-                #define iigo_matCap_BORDER _BorderRed
-                #define iigo_matCap_TEXTURE _MatCapRed
-                #define iigo_matCap_EMISSION _EmissionRed
+            //#define iigo_matCap_ENABLED
+                //#define iigo_matCap_BORDER _BorderRed
+                //#define iigo_matCap_TEXTURE _MatCapRed
+                //#define iigo_matCap_EMISSION _EmissionRed
 
             #define iigo_rimlight_ENABLED
                 #define iigo_rimlight_POWER _RimPowerRed
@@ -207,10 +207,10 @@
                 #define iigo_glass_EDGETHICKNESS _EdgeThicknessGreen
                 #define iigo_glass_EMISSION _EmissionGreen
 
-            #define iigo_matCap_ENABLED
-                #define iigo_matCap_BORDER _BorderGreen
-                #define iigo_matCap_TEXTURE _MatCapGreen
-                #define iigo_matCap_EMISSION _EmissionGreen
+            //#define iigo_matCap_ENABLED
+                //#define iigo_matCap_BORDER _BorderGreen
+                //#define iigo_matCap_TEXTURE _MatCapGreen
+                //#define iigo_matCap_EMISSION _EmissionGreen
 
             #define iigo_rimlight_ENABLED
                 #define iigo_rimlight_POWER _RimPowerGreen
@@ -245,10 +245,10 @@
                 #define iigo_glass_EDGETHICKNESS _EdgeThicknessGreen
                 #define iigo_glass_EMISSION _EmissionGreen
 
-            #define iigo_matCap_ENABLED
-                #define iigo_matCap_BORDER _BorderGreen
-                #define iigo_matCap_TEXTURE _MatCapGreen
-                #define iigo_matCap_EMISSION _EmissionGreen
+            //#define iigo_matCap_ENABLED
+                //#define iigo_matCap_BORDER _BorderGreen
+                //#define iigo_matCap_TEXTURE _MatCapGreen
+                //#define iigo_matCap_EMISSION _EmissionGreen
 
             #define iigo_rimlight_ENABLED
                 #define iigo_rimlight_POWER _RimPowerGreen
