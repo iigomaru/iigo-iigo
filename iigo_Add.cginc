@@ -19,8 +19,6 @@
                 UNITY_LIGHTING_COORDS(5, 6)
                 float3 camPos        : TEXCOORD7;
                 float4 audioLinkData : TEXCOORD8;
-                float4 basePos       : TEXCOORD9;
-                float3 normalOS      : TEXCOORD10;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -63,7 +61,6 @@
                 #undef iigo_pants_ENABLED
 
                 o.positionWS    = mul(unity_ObjectToWorld, float4(position.xyz, 1.0));
-                o.basePos       = float4(v.uv1.xyz, 1.0);
                 o.pos           = UnityWorldToClipPos(o.positionWS);
                 #ifdef iigo_texture_ENABLED
                 o.uv            = TRANSFORM_TEX(v.uv, iigo_texture_TEXTURE);
@@ -71,7 +68,6 @@
                 o.uv            = v.uv;
                 #endif
                 o.normalWS      = UnityObjectToWorldNormal(v.normalOS);
-                o.normalOS      = v.normalOS;
                 UNITY_TRANSFER_FOG(o,o.pos);
                 UNITY_TRANSFER_LIGHTING(o,v.uv1);
 
