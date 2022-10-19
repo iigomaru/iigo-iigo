@@ -461,6 +461,11 @@
                 #define iigo_eyes_TEXTURE _PanoSphereGreen
                 #define iigo_eyes_ALPHA (tex2D(_CombinedMask, i.uv).b)
 
+            #define gt_outline_ENABLED
+                #define gt_outline_COLOR (iigo_global_RIMLIGHTCOLOR * tex2D(_CombinedMask, i.uv).g)
+
+            #include "..//GTToonOutline.hlsl"
+
             #include "iigo_Add.cginc"
             ENDHLSL
         }
@@ -538,6 +543,11 @@
             #define iigo_rimlight_ENABLED
                 #define iigo_rimlight_POWER _RimPowerBlue
                 #define iigo_rimlight_COLOR _EmissionColorBlue
+
+            #define gt_outline_ENABLED
+                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+
+            #include "..//GTToonOutline.hlsl"
 
             #include "iigo_Add.cginc"
             ENDHLSL

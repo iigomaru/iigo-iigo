@@ -199,6 +199,11 @@
                 #define iigo_rimlight_POWER iigo_global_RIMPOWER
                 #define iigo_rimlight_COLOR iigo_global_RIMLIGHTCOLOR
 
+            #define gt_outline_ENABLED
+                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+
+            #include "..//GTToonOutline.hlsl"
+
             #include "iigo_Add.cginc"
             ENDHLSL
         }

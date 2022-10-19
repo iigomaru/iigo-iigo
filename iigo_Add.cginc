@@ -19,6 +19,7 @@
                 UNITY_LIGHTING_COORDS(5, 6)
                 float3 camPos        : TEXCOORD7;
                 float4 audioLinkData : TEXCOORD8;
+                float4 scrPos : POSITION2;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -68,6 +69,9 @@
                 o.uv            = v.uv;
                 #endif
                 o.normalWS      = UnityObjectToWorldNormal(v.normalOS);
+
+                o.scrPos = ComputeGrabScreenPos(o.pos);
+
                 UNITY_TRANSFER_FOG(o,o.pos);
                 UNITY_TRANSFER_LIGHTING(o,v.uv1);
 
@@ -285,6 +289,28 @@
 
                 #endif
                 #undef iigo_glitchFlipbook_ENABLED
+
+                // GT OUTLINE
+                // =============================================================
+
+                #ifdef gt_outline_ENABLED
+
+                    const float2 centerUV  = i.scrPos.xy / i.scrPos.w;
+
+                    //col = float4(float2(centerUV),1,1);
+
+                    float3 diffuse = col.rgb;
+
+                    float3 outlineColor = gt_outline_COLOR;
+
+                    outlineColor *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
+
+                    applyToonOutline(diffuse, centerUV, i.pos.w, gt_outline_COLOR.a, outlineColor);
+
+                    col.rgb = diffuse;
+
+                #endif
+                #undef gt_outline_ENABLED
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
 
