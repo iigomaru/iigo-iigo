@@ -243,22 +243,23 @@ float calcHexDistance2(float2 p, float2 q)
     return max(pM,qM);
 }
 
+// this is just broken as of right now
 float3 iigo_pants(float3 vertex, float2 time)
 {
-    float porktime = 0.0;
-
-    if(AudioLinkIsAvailable())
-    {
-        porktime = AudioLinkData( ALPASS_AUDIOTREBLE  );
-    }
-    else
-    {
-        porktime = fmod((time.x * 5) * sin(time.x + 10), 1);
-    }
-
-    float3 modPos      = vertex.xyz;
-    modPos.x           = modPos.x + sin(modPos.x * 5000 * time.y) / 80;
-    float3 position    = lerp(vertex.xyz, modPos, smoothstep(0.9,1.0,porktime));
+    //float porktime = 0.0;
+//
+    //if(AudioLinkIsAvailable())
+    //{
+    //    porktime = AudioLinkData( ALPASS_AUDIOTREBLE  );
+    //}
+    //else
+    //{
+    //    porktime = fmod((time.x * 5) * sin(time.x + 10), 1);
+    //}
+//
+    //float3 modPos      = vertex.xyz;
+    //modPos.x           = modPos.x + sin(modPos.x * 5000 * time.y) / 80;
+    //float3 position    = lerp(vertex.xyz, modPos, smoothstep(0.9,1.0,porktime));
 
     return vertex.xyz;
 }
