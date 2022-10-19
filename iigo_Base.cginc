@@ -59,7 +59,7 @@
 
                 #ifdef iigo_pants_ENABLED
 
-                    position = iigo_pants(position, o.audioLinkData.xy);
+                    position = iigo_pants(position, o.audioLinkData.xy); // this is broken atm and just returns position.xyz
             
                 #endif
                 #undef iigo_pants_ENABLED
