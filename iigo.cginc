@@ -11,6 +11,9 @@
 #define iigo_global_RIMLIGHTCOLOR float4(0.2,0.18,0.196,1)
 #define iigo_global_RIMPOWER      float(0.2)
 
+float _VRChatMirrorMode;
+float3 _VRChatMirrorCameraPos;
+
 float3 iigo_playerCenterCamera()
 {
     #if defined(USING_STEREO_MATRICES)
@@ -18,6 +21,11 @@ float3 iigo_playerCenterCamera()
     #else
     float3 PlayerCenterCamera = _WorldSpaceCameraPos.xyz;
     #endif
+
+    if (_VRChatMirrorMode > 0)
+    {
+        PlayerCenterCamera = _VRChatMirrorCameraPos;
+    }
 
     return PlayerCenterCamera;
 }
@@ -166,8 +174,8 @@ float4 iigo_glass(float alpha, float3 cameraPosition, float3 worldspacePos, floa
     // dot product is smaller the smaller the angle bw the vectors is
     // close to edge = closer to 0
     // far from edge = closer to 1
-    float viewDir = normalize(cameraPosition - worldspacePos);
-    float N = normalize(normalWS);
+    float3 viewDir = normalize(cameraPosition - worldspacePos);
+    float3 N = normalize(normalWS);
     float edgeFactor = abs(dot(viewDir, N));
 
     // apply edgeFactor to Albedo color & EdgeColor

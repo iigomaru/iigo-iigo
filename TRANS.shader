@@ -50,6 +50,8 @@
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" "VRCFallback"="Hidden" "IgnoreProjector"="True"}
+        
+        cull off
         ColorMask RGB
 
 
@@ -104,6 +106,13 @@
             #include "iigo.cginc"
 
         ENDHLSL
+
+        // https://github.com/pema99/shader-knowledge/blob/main/tips-and-tricks.md#avoiding-draw-order-issues-with-transparent-shaders
+        Pass
+        {
+            ZWrite On
+            ColorMask 0
+        }
 
         // ---------------------------------------------------------------------
         // DROOL // RED
