@@ -11,6 +11,9 @@
 #define iigo_global_RIMLIGHTCOLOR float4(0.2,0.18,0.196,1)
 #define iigo_global_RIMPOWER      float(0.2)
 
+float _VRChatMirrorMode;
+float3 _VRChatMirrorCameraPos;
+
 float3 iigo_playerCenterCamera()
 {
     #if defined(USING_STEREO_MATRICES)
@@ -18,6 +21,11 @@ float3 iigo_playerCenterCamera()
     #else
     float3 PlayerCenterCamera = _WorldSpaceCameraPos.xyz;
     #endif
+
+    if (_VRChatMirrorMode > 0)
+    {
+        PlayerCenterCamera = _VRChatMirrorCameraPos;
+    }
 
     return PlayerCenterCamera;
 }
