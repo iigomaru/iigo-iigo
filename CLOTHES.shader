@@ -218,7 +218,7 @@
                 #define iigo_rimlight_IGNORELIGHT
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR float4(0.44, 0.44, 0.44, 1)
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -259,7 +259,7 @@
                 #define iigo_rimlight_IGNORELIGHT
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -306,7 +306,7 @@
                 #define iigo_rimlight_COLOR  _EmissionColorGreen
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR _EmissionColorGreen
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -349,7 +349,7 @@
                 #define iigo_rimlight_COLOR  _EmissionColorGreen
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -385,7 +385,7 @@
                 #define iigo_rimlight_COLOR float4(0,0,0,1)
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR _OutlineColor
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -417,7 +417,7 @@
                 #define iigo_rimlight_COLOR float4(0,0,0,1)
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 

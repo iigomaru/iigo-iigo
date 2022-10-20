@@ -10,6 +10,7 @@
 
 #define iigo_global_RIMLIGHTCOLOR float4(0.2,0.18,0.196,1)
 #define iigo_global_RIMPOWER      float(0.2)
+#define BLACK                     float4(0.0, 0.0, 0.0, 1.0)
 
 float _VRChatMirrorMode;
 float3 _VRChatMirrorCameraPos;

@@ -296,7 +296,7 @@
                 #define iigo_rimlight_COLOR iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -337,7 +337,7 @@
                 #define iigo_rimlight_COLOR iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -381,7 +381,7 @@
                 #define iigo_rimlight_COLOR iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
@@ -421,7 +421,7 @@
                 #define iigo_rimlight_COLOR iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 

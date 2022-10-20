@@ -413,7 +413,7 @@
                 #define iigo_eyes_ALPHA (tex2D(_CombinedMask, i.uv).b)
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR (iigo_global_RIMLIGHTCOLOR * tex2D(_CombinedMask, i.uv).g)
+                #define gt_outline_COLOR (BLACK * tex2D(_CombinedMask, i.uv).g)
 
             #include "..//GTToonOutline.hlsl"
 
@@ -462,7 +462,7 @@
                 #define iigo_eyes_ALPHA (tex2D(_CombinedMask, i.uv).b)
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR (iigo_global_RIMLIGHTCOLOR * tex2D(_CombinedMask, i.uv).g)
+                #define gt_outline_COLOR (BLACK * tex2D(_CombinedMask, i.uv).g)
 
             #include "..//GTToonOutline.hlsl"
 
@@ -506,7 +506,7 @@
                 #define iigo_rimlight_COLOR _EmissionColorBlue
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
             #include "iigo_Base.cginc"
@@ -545,7 +545,7 @@
                 #define iigo_rimlight_COLOR _EmissionColorBlue
 
             #define gt_outline_ENABLED
-                #define gt_outline_COLOR iigo_global_RIMLIGHTCOLOR
+                #define gt_outline_COLOR BLACK
 
             #include "..//GTToonOutline.hlsl"
 
