@@ -87,13 +87,12 @@
         _ScaleGreen ("Scale", Float) = 9
 
         _EmissionColorGreen ("Rimlight Color", Color) = (0.496,0.447,0.486,1)
-
-        _MainTexGreen ("Texture", 2D) = "white" {}
-
-        _UVDistortionMapGreen ("UV Distortion Map", 2D) = "white" {}
-
+        
         _BeefGreen ("Beef", Range(0,1)) = 0
         _PorkGreen ("Pork", Range(0,1)) = 1
+
+        _HoodieColor1Green ("Hoodie Color 1", Color) = (0.0, 0.0, 0.0 ,1)
+        _HoodieColor2Green ("Hoodie Color 2", Color) = (0.0, 0.0, 0.0 ,1)
 
         //------------------------------------------------------------------------------------------------------------------------------
         // ForwardBase
@@ -136,9 +135,6 @@
         //GREEN
         //=====================================================
 
-            sampler2D _MainTexGreen;
-            float4  _MainTexGreen_ST;
-
             // iigo properties
             float _EmissionGreen;
             float4 _EmissionColorGreen;
@@ -151,7 +147,8 @@
             float _AlphaGreen; //
             float _ScaleGreen; //
 
-            sampler2D _UVDistortionMapGreen;
+            float4 _HoodieColor1Green;
+            float4 _HoodieColor2Green;
 
         //==================================================================
         // iigo cginc
@@ -289,8 +286,8 @@
             #define iigo_base_COLOR float4(1,1,1,1)
 
             #define iigo_distortedTexture_ENABLED
-                #define iigo_distortedTexture_DISTORTIONTEX _UVDistortionMapGreen
-                #define iigo_distortedTexture_MAINTEX _MainTexGreen
+                #define iigo_distortedTexture_COLOR1 _HoodieColor1Green 
+                #define iigo_distortedTexture_COLOR2 _HoodieColor2Green
 
             #define iigo_hoodie_ENABLED
                 #define iigo_hoodie_SPEED    _SpeedGreen
@@ -332,8 +329,8 @@
             #define iigo_base_COLOR float4(1,1,1,1)
 
             #define iigo_distortedTexture_ENABLED
-                #define iigo_distortedTexture_DISTORTIONTEX _UVDistortionMapGreen
-                #define iigo_distortedTexture_MAINTEX _MainTexGreen
+                #define iigo_distortedTexture_COLOR1 _HoodieColor1Green 
+                #define iigo_distortedTexture_COLOR2 _HoodieColor2Green
 
             #define iigo_hoodie_ENABLED
                 #define iigo_hoodie_SPEED    _SpeedGreen
