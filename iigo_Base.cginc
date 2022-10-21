@@ -19,6 +19,7 @@
                 UNITY_LIGHTING_COORDS(5, 6)
                 float3 camPos        : TEXCOORD7;
                 float4 audioLinkData : TEXCOORD8;
+                float3 positionOS    : TEXCOORD9;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -64,6 +65,7 @@
                 #undef iigo_pants_ENABLED
 
                 o.positionWS    = mul(unity_ObjectToWorld, float4(position.xyz, 1.0));
+                o.positionOS    = position.xyz;
                 o.pos           = UnityWorldToClipPos(o.positionWS);
                 #ifdef iigo_texture_ENABLED
                 o.uv            = TRANSFORM_TEX(v.uv, iigo_texture_TEXTURE);
@@ -152,7 +154,7 @@
 
                 #ifdef iigo_distortedTexture_ENABLED
 
-                    col = iigo_distortedTexture(i.positionWS, i.iigo_audioLinkData_TIMEX, iigo_distortedTexture_COLOR1, iigo_distortedTexture_COLOR2);
+                    col = iigo_distortedTexture(i.positionOS, i.iigo_audioLinkData_TIMEX, iigo_distortedTexture_COLOR1, iigo_distortedTexture_COLOR2);
 
                     col.rgb *= i.directLight;
 
