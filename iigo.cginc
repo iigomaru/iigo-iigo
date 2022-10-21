@@ -1,6 +1,8 @@
 // audiolink
 #include "AudioLink.cginc"
 
+#include "hashwithoutsine.cginc"
+
 #define iigo_audioLinkData_TIMEX  audioLinkData.x
 #define iigo_audioLinkData_TIMEY  audioLinkData.y
 #define iigo_audioLinkData_BASS   audioLinkData.z
@@ -199,15 +201,21 @@ float4 iigo_glass(float alpha, float3 cameraPosition, float3 worldspacePos, floa
     return col;
 }
 
-float4 iigo_distortedTexture(float2 uv, float time, sampler2D uvDistortionMap, sampler2D mainTex)
+float4 iigo_distortedTexture(float3 position, float time, float3 color1, float3 color2)
 {
-    float2 PanningUV = float2( (uv.x + sin(time * 2)), (uv.y + time));
-    
-    float2 DistortedUV = tex2D( uvDistortionMap, PanningUV ).rg;
+    float4 col = float4(0.0, 0.0, 0.0, 1.0);
 
-    float4 col = tex2D( mainTex, DistortedUV.xy );
+    col.x = csimplex3(float3(abs(position + time )  + sin(time * 2.0)));
 
-    return col;
+    col.y = csimplex3(float3(abs(position * 0.5) + time + sin(time * 4.0)));
+
+    col.z = csimplex3(float3(abs(position * 2.0) + time + sin(time * 2.0 )));
+
+    col.xyz = csimplex3(col);
+
+    col.xyz = lerp(color1, color2, saturate(col.x + 0.5));
+
+    return saturate(col);
 }
 
 #define SQRT3DIV2   0.86602540378

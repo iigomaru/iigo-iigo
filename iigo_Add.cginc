@@ -133,7 +133,7 @@
 
                 #ifdef iigo_distortedTexture_ENABLED
 
-                    col = iigo_distortedTexture(i.uv, i.iigo_audioLinkData_TIMEX, iigo_distortedTexture_DISTORTIONTEX, iigo_distortedTexture_MAINTEX);
+                    col = iigo_distortedTexture(i.positionWS, i.iigo_audioLinkData_TIMEX, iigo_distortedTexture_COLOR1, iigo_distortedTexture_COLOR2);
 
                     col.rgb *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
 
