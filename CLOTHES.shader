@@ -14,8 +14,6 @@
         [Header(RED MAT)]
         _EmissionRed ("Emission", Range(0,1)) = 0.2
 
-        //Shader by iigo丸 version 1.1
-        [NoScaleOffset] _MatCapRed ("MatCap", 2D) = "white" {}
         _ColorRed("Color", Color) = (0.66, 0.64, 0.66, 1)
         _BorderRed ("Border", Range(0,1)) = .44
 
@@ -71,8 +69,6 @@
 
             // iigo properties
             float _EmissionRed;
-            sampler2D _MatCapRed;
-            float4 _MyArrRed_ST;
             float4  _ColorRed;
             float _BorderRed;
             float _RimPowerRed;
@@ -134,7 +130,10 @@
                 #define iigo_matCap_BORDER _BorderRed
                 #define iigo_matCap_TEXTURE _MatCapRed
                 #define iigo_matCap_EMISSION _EmissionRed
-                #define iigo_matCap_FULL
+                #define iigo_matCap_SHOES
+                    #define iigo_matCap_SHOES_COLOR1 float3(0.00, 0.92, 0.96)
+                    #define iigo_matCap_SHOES_COLOR2 float3(0.87, 0.55, 0.88)
+                    #define iigo_matCap_SHOES_ROTATION float(0.325) + i.iigo_audioLinkData_TIMEX
 
             #define iigo_glitchFlipbook_ENABLED
                 #define iigo_glitchFlipbook_TEXTUREARRAY _MyArrRed
@@ -170,7 +169,10 @@
                 #define iigo_matCap_BORDER _BorderRed
                 #define iigo_matCap_TEXTURE _MatCapRed
                 #define iigo_matCap_EMISSION _EmissionRed
-                #define iigo_matCap_FULL
+                #define iigo_matCap_SHOES
+                    #define iigo_matCap_SHOES_COLOR1 float3(0.00, 0.92, 0.96)
+                    #define iigo_matCap_SHOES_COLOR2 float3(0.87, 0.55, 0.88)
+                    #define iigo_matCap_SHOES_ROTATION float(0.325) + i.iigo_audioLinkData_TIMEX
 
             #define iigo_glitchFlipbook_ENABLED
                 #define iigo_glitchFlipbook_TEXTUREARRAY _MyArrRed

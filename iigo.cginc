@@ -73,6 +73,21 @@ float4 iigo_matCap(float3 worldSpaceNormal, float3 worldSpacePos, float3 cameraP
     return matCap; 
 }
 
+float2 iigo_matCap(float3 worldSpaceNormal, float3 worldSpacePos, float3 cameraPos, float MatcapBorder)
+{
+    float3 worldSpaceViewDir = normalize(worldSpacePos - cameraPos);
+
+    float3 up = mul((float3x3)UNITY_MATRIX_I_V, float3(0,1,0));
+    float3 right = normalize(cross(up, worldSpaceViewDir));
+    up = cross(worldSpaceViewDir, right);
+    float2 matcapUV = mul(float3x3(right, up, worldSpaceViewDir), worldSpaceNormal).xy;
+
+    // remap from -1 .. 1 to 0 .. 1
+    matcapUV = matcapUV * MatcapBorder + 0.5;
+
+    return matcapUV;
+}
+
 float iigo_rimlight(float3 worldSpaceNormal, float3 worldSpacePos, float3 cameraPos, float RimPower)
 {
     float3 viewDir = normalize(cameraPos - worldSpacePos);
@@ -379,4 +394,50 @@ float4 iigo_glitchFlipbook(float4 audioLinkData, float2 uv, UNITY_ARGS_TEX2DARRA
     }
 
     return flipbook;
+}
+
+float3 iigo_shoeTexColor(float2 uv, float3 color1, float3 color2, float rotation)
+{
+    float Overlay = glsl_mod((((atan2(uv.x - 0.5,(1 - uv.y) - 0.5) * 0.15915494309189533576888376337251 /*OneOverTau*/) ) + rotation), 1);
+
+    float InvertOverlay = glsl_mod((1 - (((atan2(uv.x - 0.5,(1 - uv.y) - 0.5) * 0.15915494309189533576888376337251 /*OneOverTau*/) ) + rotation)), 1);
+
+    Overlay = min(Overlay , InvertOverlay) * 2;
+
+    Overlay = smoothstep(0.0, 1.0, Overlay);
+
+    Overlay = smoothstep(0.0, 1.0, Overlay);
+
+    Overlay = smoothstep(0.0, 1.0, Overlay);
+
+    float3 color = lerp(color1, color2, Overlay);
+
+    return color;
+}
+
+float iigo_shoeTexAlpha(float2 uv)
+{
+    uv = (uv * 2.0) - 1.0;
+    float dist = (uv.x * uv.x) + (uv.y * uv.y);
+    float baseAlpha = float4(0.0, 0.0, 0.0, 0.0);
+    float thresholdWidth = iigo_AA(dist.xx);
+    float plusThreshold = dist + thresholdWidth;
+
+    float alpha = baseAlpha;
+
+    float alpha1 = float(1.0);
+    alpha = lerp(alpha, alpha1, smoothstep(dist, plusThreshold, 1.0));   
+
+    float alpha2 = float(0.0);
+    alpha = lerp(alpha, alpha2, smoothstep(dist, plusThreshold, 0.7));
+
+    return alpha;
+}
+
+float4 iigo_shoeTex(float2 uv, float3 color1, float3 color2, float rotation)
+{
+    float4 col = float4(0.0, 0.0, 0.0, 1.0);
+    col.rgb = iigo_shoeTexColor(uv, color1, color2, rotation);
+    col.a   = iigo_shoeTexAlpha(uv);
+    return col;
 }

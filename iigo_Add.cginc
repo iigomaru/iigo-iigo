@@ -256,21 +256,30 @@
                 // =============================================================
 
                 #ifdef iigo_matCap_ENABLED
-
-                    // Returns the Matcap color
-                    float4 matCap = iigo_matCap(i.normalWS, i.positionWS, i.camPos, iigo_matCap_BORDER, iigo_matCap_TEXTURE);
-
-                    // Light
-                    matCap.rgb *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
-
                     // Applies the matcap color
-                    #ifndef iigo_matCap_FULL
+                    #ifdef iigo_matCap_SHOES
+
+                        // Returns the Matcap color
+                        float2 matCapUV = iigo_matCap(i.normalWS, i.positionWS, i.camPos, iigo_matCap_BORDER);
+
+                        float4 matCap = iigo_shoeTex(matCapUV, iigo_matCap_SHOES_COLOR1 , iigo_matCap_SHOES_COLOR2 , iigo_matCap_SHOES_ROTATION);
+
+                        matCap.rgb *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
+
+                        col.rgb = lerp(col.rgb, max(col.rgb , matCap.rgb), matCap.a);
+
+                    #else
+
+                        // Returns the Matcap color
+                        float4 matCap = iigo_matCap(i.normalWS, i.positionWS, i.camPos, iigo_matCap_BORDER, iigo_matCap_TEXTURE);
+
+                        matCap.rgb *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
+
                         col.rgb = lerp(col.rgb, col.rgb * matCap.rgb, .1);
                         col.rgb = lerp(col.rgb, col.rgb + matCap.rgb, .1);
-                    #else
-                        col.rgb = lerp(col.rgb, max(col.rgb, matCap.rgb), matCap.a);
+                        
                     #endif
-                    #undef iigo_matCap_FULL
+                    #undef iigo_matCap_SHOES
 
                 #endif
                 #undef iigo_matCap_ENABLED
