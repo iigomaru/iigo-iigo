@@ -163,7 +163,7 @@
 
                 #ifdef iigo_glass_ENABLED
                     // Sample the albedo texture
-                    float4 glass = iigo_glass(_AlphaGreen, i.camPos, i.positionWS, i.normalWS, iigo_glass_COLOR, iigo_glass_EDGECOLOR, iigo_glass_EDGETHICKNESS);
+                    float4 glass = iigo_glass(iigo_glass_ALPHA, i.camPos, i.positionWS, i.normalWS, iigo_glass_COLOR, iigo_glass_EDGECOLOR, iigo_glass_EDGETHICKNESS);
 
                     // Applies the overall emmission value
                     glass.rgb *= saturate(lerp(0.0, _LightColor0.rgb, attenuation));
