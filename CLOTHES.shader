@@ -161,6 +161,7 @@
          Pass
         {        	
 	        HLSLPROGRAM
+            #define iigo_pants_ENABLED
 	        #include "..//GTToonOutlineGrabPass.hlsl"
 	        #pragma target 5.0
             #pragma vertex grabpass_vert
