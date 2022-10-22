@@ -128,7 +128,7 @@ float4 iigo_panosphere(float3 worldspacePos, float3 cameraPos, sampler2D Panosph
 
 
 
-float4 iigo_meter(float2 uv, float4 col, float4 MeterColor, float4 MeterColor2, float4 Meter2Color, float4 Meter2Color2, float Meter, sampler2D MeterMask, float time)
+float4 iigo_meter(float2 uv, float4 col, float4 MeterColor, float4 MeterColor2, float4 Meter2Color, float4 Meter2Color2, float Meter, float meterMask, float time)
 {
     float4 meterColor = float4(col.rgb, 1);
 
@@ -149,8 +149,6 @@ float4 iigo_meter(float2 uv, float4 col, float4 MeterColor, float4 MeterColor2, 
     meterColor.rgb = lerp(meterColor.rgb, Meter2Color2, saturate(smoothstep(Meter2,Meter2 - thresholdWidth - .1, level2) - .25));
 
     meterColor.a = saturate(smoothstep(Meter,Meter - thresholdWidth, level));
-
-    float meterMask = tex2D(MeterMask, uv).r;
 
     meterColor.a *= meterMask;
 

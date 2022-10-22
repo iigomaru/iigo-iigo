@@ -20,7 +20,7 @@
 
         _MainMask ("Mask", 2D) = "white" {}
 
-        [NoScaleOffset] _MainTexEmission ("Texture Emission", 2D) = "black" {}
+        //[NoScaleOffset] _MainTexEmission ("Texture Emission", 2D) = "black" {}
 
         //============================================================
 
@@ -71,7 +71,7 @@
 
             sampler2D _MainMask;
 
-            sampler2D _MainTexEmission;
+            //sampler2D _MainTexEmission;
 
             float _Meter;
 
@@ -124,7 +124,7 @@
 
             #define iigo_texture_ENABLED
                 #define iigo_texture_TEXTURE _MainTexRed
-                #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainTexEmission, i.uv).r)
+                #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainMask, i.uv).g)
 
             //#define iigo_matCap_ENABLED
                 //#define iigo_matCap_BORDER float(0.3)
@@ -137,7 +137,7 @@
                 #define iigo_meter_METER2COLOR float4(1.0, 0.86, 0.96, 1.0)
                 #define iigo_meter_METER2COLOR2 float4(0.85, 0.74, 0.82, 1.0)
                 #define iigo_meter_METER _Meter
-                #define iigo_meter_METERMASK _MainMask
+                #define iigo_meter_METERMASK (float(1.0) * tex2D(_MainMask, i.uv).r)
                 #define iigo_meter_EMISSION float(0.2)
 
             #define iigo_rimlight_ENABLED
@@ -167,7 +167,7 @@
 
             #define iigo_texture_ENABLED
                 #define iigo_texture_TEXTURE _MainTexRed
-                #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainTexEmission, i.uv).r)
+                #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainMask, i.uv).g)
 
             //#define iigo_matCap_ENABLED
                 //#define iigo_matCap_BORDER float(0.3)
@@ -180,7 +180,7 @@
                 #define iigo_meter_METER2COLOR float4(1.0, 0.86, 0.96, 1.0)
                 #define iigo_meter_METER2COLOR2 float4(0.85, 0.74, 0.82, 1.0)
                 #define iigo_meter_METER _Meter
-                #define iigo_meter_METERMASK _MainMask
+                #define iigo_meter_METERMASK (float(1.0) * tex2D(_MainMask, i.uv).r)
                 #define iigo_meter_EMISSION float(0.2)
 
             #define iigo_rimlight_ENABLED
