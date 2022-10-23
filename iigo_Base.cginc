@@ -170,7 +170,11 @@
 
                     hoodie.rgb *= lerp(i.directLight, 1.0, iigo_hoodie_EMISSION);
 
-                    col.rgb = lerp(col.rgb, hoodie.rgb, hoodie.a);
+                    float normalizedAlpha = hoodie.a;
+
+                    normalizedAlpha = lerp(hoodie.a, 0.0, inverse_smoothstep(iigo_hoodie_BEEF) * 0.35);
+
+                    col.rgb = lerp(col.rgb, hoodie.rgb, normalizedAlpha);
 
                 #endif
                 #undef iigo_hoodie_ENABLED

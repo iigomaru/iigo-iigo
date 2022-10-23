@@ -43,6 +43,18 @@ float iigo_AA(float2 input)
     return thresholdWidth;
 }
 
+float smoothmin(float a, float b, float k)
+{
+    float x = exp(-k * a);
+    float y = exp(-k * b);
+    return (a * x + b * y) / (x + y);
+}
+
+float smoothmax(float a, float b, float k)
+{
+    return smoothmin(a, b, -k);
+}
+
 void iigo_ComputeFlat(out float3 directLight)
 {
     #if !defined(LIGHTMAP_ON) && UNITY_SHOULD_SAMPLE_SH
@@ -236,16 +248,7 @@ float4 iigo_distortedTexture(float3 position, float time, float3 color1, float3 
 #define TWODIVSQRT3 1.15470053838
 #define SQRT3DIV4   0.43301270189 
 
-
-// tbh I have no clue where this came from I think I saw a twitter
-// post about "everything looks good in vfx if you use this curve"
-// so I spent like 2 hours trying to model this curve kinda.
-float distortioncurve(float x)
-{
-    return max(-18*(x*x*x)+x, 1.8*(x*x)-0.1);
-}
-
-
+// https://andrewhungblog.wordpress.com/2018/07/28/shader-art-tutorial-hexagonal-grids/
 float4 calcHexInfo(float2 uv) 
 {
     // remember, s is vec2(1, sqrt(3))
@@ -328,6 +331,44 @@ float iigo_hoodieDistance(float2 UV)
     return TotalDist;
 }
 
+float iigo_hoodieDots(float2 UV, float Modifyer)
+{
+    
+    float2 Hex = calcHexInfo(UV); //
+
+    float  Dot = 1.0 - abs(length(Hex));
+
+    Dot *= Modifyer;
+
+    float2 Hex2 = calcHexInfo(float2(UV.x + 0.5 ,UV.y));
+
+    float  Dot2 =  1.0 - abs(length(Hex2));
+
+    Dot2 *= Modifyer;
+
+    float2 ModUV = float2(UV.x + 0.25, UV.y + SQRT3DIV4);
+
+    float2 Hex3 = calcHexInfo(ModUV); //
+
+    float  Dot3 =  1.0 - abs(length(Hex3));
+
+    Dot3 *= Modifyer;
+
+    float2 Hex4 = calcHexInfo(float2(ModUV.x + 0.5 ,ModUV.y));
+
+    float  Dot4 =  1.0 - abs(length(Hex4));
+
+    Dot4 *= Modifyer;
+
+    float  TotalDot = max(Dot, Dot2);
+    
+    float  TotalDot2 = max(Dot3, Dot4);
+
+           TotalDot  = max(TotalDot, TotalDot2);
+
+    return TotalDot;
+}
+
 float inverse_smoothstep(float x) {
   return 0.5 - sin(asin(1.0 - 2.0 * x) / 3.0);
 }
@@ -359,6 +400,33 @@ float iigo_hoodieTing(float TotalDist, float pork, float bass, float beef, float
     return BarAlpha;
 }
 
+float iigo_hoodieTingDots(float TotalDist, float pork, float bass, float beef, float treble)
+{
+    float Porky = (pork - bass);
+
+    Porky = inverse_smoothstep(inverse_smoothstep(Porky));
+    
+    Porky = Porky * (0.502 - 0.48) + 0.48; //
+
+    float BarAlpha = 0; //
+
+    float Beefy = (beef + treble);
+
+    Beefy = inverse_smoothstep(inverse_smoothstep(Beefy));
+
+    Beefy = Beefy * (0.02 - 0.01) + 0.01;
+
+    float distFromEdge = 1.0 - TotalDist;
+
+    float thresholdWidth = iigo_AA(distFromEdge.xx);
+
+    BarAlpha = smoothstep((Porky - Beefy) - thresholdWidth, (Porky - Beefy) + thresholdWidth, TotalDist);
+
+    //BarAlpha *= smoothstep((Porky ) + thresholdWidth, (Porky ) - thresholdWidth,  TotalDist);
+
+    return BarAlpha;
+}
+
 float4 iigo_hoodieColor(float2 unscaledUV, float speed, float4 audiolinkData, float scale, float pork, float beef, float alpha, float4 color)
 {
     unscaledUV.y = unscaledUV.y + sin(speed * audiolinkData.x);
@@ -367,7 +435,17 @@ float4 iigo_hoodieColor(float2 unscaledUV, float speed, float4 audiolinkData, fl
 
     float TotalDist = iigo_hoodieDistance( UV );
 
+    float TotalDots = iigo_hoodieDots( UV , float(1.0));
+
+    TotalDots = ((TotalDots) - (0.5));
+
+    //TotalDist = max(TotalDots, TotalDist);
+
+    //return float4(TotalDist.xxx, 1.0);
+
     float BarAlpha = iigo_hoodieTing( TotalDist, pork, audiolinkData.z, beef, audiolinkData.w);
+
+    BarAlpha = max(BarAlpha, iigo_hoodieTingDots( TotalDots, pork, audiolinkData.z, beef, audiolinkData.w));
 
     float Alpha = BarAlpha * alpha; //
 
