@@ -243,6 +243,13 @@ float4 iigo_distortedTexture(float3 position, float time, float3 color1, float3 
     return saturate(col);
 }
 
+float2 rotateUVmatrix(float2 uv, float rotation)
+{
+    float2x2 rotation_matrix = transpose(float2x2(float2(sin(rotation), -cos(rotation)), float2(cos(rotation), sin(rotation))));
+    uv = mul(uv,rotation_matrix);
+    return uv;
+}
+
 #define SQRT3DIV2   0.86602540378
 #define SQRT3       1.73205080757
 #define TWODIVSQRT3 1.15470053838
@@ -336,13 +343,24 @@ float iigo_hoodieDots(float2 UV, float Modifyer)
     
     float2 Hex = calcHexInfo(UV); //
 
-    float  Dot = 1.0 - abs(length(Hex));
+    float time = AudioLinkDecodeDataAsUInt( ALPASS_CHRONOTENSITY +
+        uint2( 3, 2 ) ) % 628318;
+
+    time = time / 100000;
+
+    Hex = rotateUVmatrix(Hex, time);
+
+    float  Dot = 1.0 - calcHexDistance(Hex);
 
     Dot *= Modifyer;
 
     float2 Hex2 = calcHexInfo(float2(UV.x + 0.5 ,UV.y));
 
-    float  Dot2 =  1.0 - abs(length(Hex2));
+    time = time + 1;
+
+    Hex2 = rotateUVmatrix(Hex2, time);
+
+    float  Dot2 =  1.0 - calcHexDistance(Hex2);
 
     Dot2 *= Modifyer;
 
@@ -350,13 +368,21 @@ float iigo_hoodieDots(float2 UV, float Modifyer)
 
     float2 Hex3 = calcHexInfo(ModUV); //
 
-    float  Dot3 =  1.0 - abs(length(Hex3));
+    time = time + 1;
+
+    Hex3 = rotateUVmatrix(Hex3, time);
+
+    float  Dot3 =  1.0 - calcHexDistance(Hex3);
 
     Dot3 *= Modifyer;
 
     float2 Hex4 = calcHexInfo(float2(ModUV.x + 0.5 ,ModUV.y));
 
-    float  Dot4 =  1.0 - abs(length(Hex4));
+    time = time + 1;
+
+    Hex4 = rotateUVmatrix(Hex4, time);
+
+    float  Dot4 =  1.0 - calcHexDistance(Hex4);
 
     Dot4 *= Modifyer;
 
@@ -410,11 +436,7 @@ float iigo_hoodieTingDots(float TotalDist, float pork, float bass, float beef, f
 
     float BarAlpha = 0; //
 
-    float Beefy = (beef + treble);
-
-    Beefy = inverse_smoothstep(inverse_smoothstep(Beefy));
-
-    Beefy = Beefy * (0.02 - 0.01) + 0.01;
+    float Beefy = 0.01;
 
     float distFromEdge = 1.0 - TotalDist;
 
@@ -422,7 +444,7 @@ float iigo_hoodieTingDots(float TotalDist, float pork, float bass, float beef, f
 
     BarAlpha = smoothstep((Porky - Beefy) - thresholdWidth, (Porky - Beefy) + thresholdWidth, TotalDist);
 
-    //BarAlpha *= smoothstep((Porky ) + thresholdWidth, (Porky ) - thresholdWidth,  TotalDist);
+    BarAlpha *= smoothstep((Porky ) + thresholdWidth, (Porky ) - thresholdWidth,  TotalDist);
 
     return BarAlpha;
 }
@@ -441,7 +463,7 @@ float4 iigo_hoodieColor(float2 unscaledUV, float speed, float4 audiolinkData, fl
 
     //TotalDist = max(TotalDots, TotalDist);
 
-    //return float4(TotalDist.xxx, 1.0);
+    //return float4(TotalDots.xxx, 1.0);
 
     float BarAlpha = iigo_hoodieTing( TotalDist, pork, audiolinkData.z, beef, audiolinkData.w);
 
