@@ -36,21 +36,7 @@
 
                 // Gets the data for the time and base/treble from audiolink if in scene
 
-                if(AudioLinkIsAvailable())
-                {
-                    o.iigo_audioLinkData_TIMEX  = AudioLinkDecodeDataAsSeconds( ALPASS_GENERALVU_NETWORK_TIME ) / 20.0; //same as _Time.x
-                    o.iigo_audioLinkData_TIMEY  = AudioLinkDecodeDataAsSeconds( ALPASS_GENERALVU_NETWORK_TIME );        //same as _Time.y
-                    o.iigo_audioLinkData_BASS   = AudioLinkData( ALPASS_AUDIOBASS );
-                    o.iigo_audioLinkData_TREBLE = AudioLinkData( ALPASS_AUDIOTREBLE );
-                }
-                else
-                {
-                    o.iigo_audioLinkData_TIMEX  = _Time.x;
-                    o.iigo_audioLinkData_TIMEY  = _Time.y;
-                    o.iigo_audioLinkData_BASS   = 0.0;
-                    o.iigo_audioLinkData_TREBLE = 0.0;
-                }
-
+                iigo_audioLinkData_SETUP
 
                 float3 position = v.vertex.xyz;
 
@@ -59,9 +45,7 @@
                 #endif
 
                 #ifdef iigo_pants_ENABLED
-
                     position = iigo_pants(position, o.audioLinkData.xy); // this might work needs more testing.
-            
                 #endif
                 #undef iigo_pants_ENABLED
 

@@ -8,6 +8,20 @@
 #define iigo_audioLinkData_BASS   audioLinkData.z
 #define iigo_audioLinkData_TREBLE audioLinkData.w
 
+#define iigo_audioLinkData_SETUP if(AudioLinkIsAvailable())\
+                                    {\
+                                        o.audioLinkData.x = AudioLinkDecodeDataAsSeconds( ALPASS_GENERALVU_NETWORK_TIME ) / 20.0; /*same as _Time.x*/ \
+                                        o.audioLinkData.y  = AudioLinkDecodeDataAsSeconds( ALPASS_GENERALVU_NETWORK_TIME );        /*same as _Time.y*/ \
+                                        o.audioLinkData.z   = AudioLinkData( ALPASS_AUDIOBASS ); \
+                                        o.audioLinkData.w = AudioLinkData( ALPASS_AUDIOTREBLE ); \
+                                    }\
+                                    else\
+                                    {\
+                                        o.audioLinkData.x  = _Time.x;\
+                                        o.audioLinkData.y  = _Time.y;\
+                                        o.audioLinkData.z  = 0.0;\
+                                        o.audioLinkData.w = 0.0;\
+                                    }
 // Global Shader Property defines
 
 #define iigo_global_RIMLIGHTCOLOR float4(0.2,0.18,0.196,1)
@@ -284,7 +298,7 @@ float calcHexDistance2(float2 p, float2 q)
 }
 
 // this might be broken right now needs more testing. might just be mirrors?
-float3 iigo_pants(float3 vertex, float2 time)
+inline float3 iigo_pants(float3 position, float2 time)
 {
     float porktime = 0.0;
 
@@ -297,11 +311,11 @@ float3 iigo_pants(float3 vertex, float2 time)
         porktime = fmod((time.x * 5) * sin(time.x + 10), 1);
     }
 
-    float3 modPos      = vertex.xyz;
+    float3 modPos      = position;
     modPos.x           = modPos.x + sin(modPos.x * 5000 * time.y) / 80;
-    float3 position    = lerp(vertex.xyz, modPos, smoothstep(0.9,1.0,porktime));
+    position.xyz    = lerp(position.xyz, modPos, smoothstep(0.9,1.0,porktime));
 
-    return position.xyz;
+    return position;
 }
 
 float iigo_hoodieDistance(float2 UV)

@@ -9,55 +9,40 @@
 
         [Header(Outline Color)]
         _OutlineColor ("Outline Color", Color) = (0,0,0,0)
+        _OutlineColorTex ("Outline Color Texture", Color) = (0,0,0,0)
 
         [Header(Outline Size)]
-        _LineSizeNear ("Line Size Near", Range(0, 2)) = .1
-        _LineSize ("Line Size", Range(0, 2)) = .5
-        _NearLineSizeRange ("Near Line Size Range", Range(0, 4)) = .3
+        _LineSizeNear ("Line Size Near", Range(0, 2)) = .2
+        _LineSize ("Line Size", Range(0, 2)) = .8
+        _NearLineSizeRange ("Near Line Size Range", Range(0, 4)) = 1
 
         [Header(Depth Map)]
         _BoundingExtents ("Depth Bounding Extents", Float) = .5
-        _DepthOffset ("Depth Bounding Offset", Range(-1,1)) = 0
-
-        [Header(Local Adaptive Depth Outline)]
-        _LocalEqualizeThreshold ("Depth Local Adaptive Equalization Threshold", Range(0, .1)) = .05
-        _DepthMult ("Depth Outline Multiplier", Range(0, 4)) = 1
-        _DepthBias ("Depth Outline Bias", Range(.5, 1.5)) = .6
-        _FarDepthMult ("Far Depth Outline Multiplier", Range(0, 4)) = .5
-        
-        [Header(Depth Contrast Outline)]
-        _DepthContrastMult ("Depth Contrast Outline Multiplier", Range(0, 2)) = 2
-        _FarDepthContrastMult ("Far Depth Contrast Outline Multiplier", Range(0, 2)) = .5
+        _DepthOffset ("Depth Bounding Offset", Range(-.5,.5)) = 0
+    	_DepthOffsetTex ("Depth Offset Texture", Color) = (0,0,0,0)
+        _LocalEqualizeThreshold ("Depth Local Adaptive Equalization Threshold", Range(0.01, .1)) = .02
+        [ToggleUI] _DepthSilhouetteMultiplier ("Depth Silhouette", Float) = 1
 
         [Header(Depth Outline Gradient)]
-        _DepthGradientMin ("Depth Outline Gradient Min", Range(0, 1)) = 0.05
+        _DepthGradientMin ("Depth Outline Gradient Min", Range(0, 1)) = 0
         _DepthGradientMax ("Depth Outline Gradient Max", Range(0, 1)) = 0.5
         _DepthEdgeSoftness ("Depth Outline Edge Softness", Range(0, 2)) = .25
 
-        [Header(Far Depth Outline)]
-        //    	[Tooltip(Distance with Depth Multiplier fades into Far Depth Multiplier)]
-        _FarDepthSampleDist ("Far Depth Outline Distance", Range(0,10)) = 10
-
         [Header(Concave Normal Outline Sampling)]
-        _NormalSampleMult ("Concave Outline Sampling Multiplier", Range(0,10)) = 3
-        _NormalSampleBias ("Concave Outline Sampling Bias", Range(0,4)) = .5
-        _FarNormalSampleMult ("Far Concave Outline Multiplier", Range(0,10)) = 2
+        _NormalSampleMult ("Concave Outline Sampling Multiplier", Range(0,10)) = 1
+        _FarNormalSampleMult ("Far Concave Outline Multiplier", Range(0,10)) = 10
 
         [Header(Convex Normal Outline Sampling)]
-        _ConvexSampleMult ("Convex Outline Sampling Multiplier", Range(0,10)) = 1
-        _ConvexSampleBias ("Convex Outline Sampling Bias", Range(0,4)) = 1
-        _FarConvexSampleMult ("Far Convex Outline Multiplier", Range(0,10)) = .5
+        _ConvexSampleMult ("Convex Outline Sampling Multiplier", Range(0,10)) = 0
+        _FarConvexSampleMult ("Far Convex Outline Multiplier", Range(0,10)) = 0
 
         [Header(Normal Outline Gradient)]
-        _NormalGradientMin ("Normal Gradient Min", Range(0, 1)) = .1
-        _NormalGradientMax ("Normal Gradient Max", Range(0, 1)) = .9
-        _NormalEdgeSoftness ("Normal Edge Softness", Range(0, 2)) = .5
+        _NormalGradientMin ("Normal Gradient Min", Range(0, 1)) = 0
+        _NormalGradientMax ("Normal Gradient Max", Range(0, 1)) = .3
+        _NormalEdgeSoftness ("Normal Edge Softness", Range(0, 2)) = .25
 
-        [Header(Far Outline Normal)]
-        //    	[Tooltip(Distance with Normal Multiplier fades into Far Normal Multiplier)]
-        _FarNormalSampleDist ("Far Normal Outline Distance", Range(0,10)) = 10
-
-
+        [Header(Far)]
+        _FarDist ("Far Distance", Range(0,10)) = 10
         //fallback stuff
 
         _MainTex ("Texture", 2D) = "black" {}
@@ -115,7 +100,7 @@
         Pass
         {        	
 	        HLSLPROGRAM
-	        #include "..//GTToonOutlineGrabPass.hlsl"
+	        #include "..//GTAvaToon//Shaders//GTToonOutlineGrabPass.hlsl"
 	        #pragma target 5.0
             #pragma vertex grabpass_vert
             #pragma fragment grabpass_frag
@@ -164,7 +149,7 @@
             #define gt_outline_ENABLED
                 #define gt_outline_COLOR _OutlineColor
 
-            #include "..//GTToonOutline.hlsl"
+            #include "..//GTAvaToon//Shaders//GTToonOutline.hlsl"
             #include "iigo_Base.cginc"
             ENDHLSL
         }
@@ -202,7 +187,7 @@
             #define gt_outline_ENABLED
                 #define gt_outline_COLOR _OutlineColor
 
-            #include "..//GTToonOutline.hlsl"
+            #include "..//GTAvaToon//Shaders//GTToonOutline.hlsl"
 
             #include "iigo_Add.cginc"
             ENDHLSL
