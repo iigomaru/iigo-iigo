@@ -125,7 +125,15 @@
 
                     #ifdef iigo_hairEmission_ENABLED
 
-                        emission *= iigo_hairEmission(iigo_hairEmission_TEXTURE, i.uv, iigo_hairEmission_EMISSION, i.positionWS, i.iigo_audioLinkData_TIMEY);
+                        float VoxelEmission = iigo_voxelEmission(i.positionOS, i.iigo_audioLinkData_TIMEY);
+
+                        //return VoxelEmission;
+
+                        emission *= iigo_hairEmission(iigo_hairEmission_EMISSION, i.positionWS, i.iigo_audioLinkData_TIMEY, VoxelEmission);
+
+                        //emission *= VoxelEmission;
+
+                        //return emission;
 
                         // Sample the albedo texture
                         float4 albedo = tex2D(iigo_texture_TEXTURE, i.uv);

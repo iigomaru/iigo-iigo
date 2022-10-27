@@ -167,17 +167,19 @@ float4 iigo_meter(float2 uv, float4 col, float4 MeterColor, float4 MeterColor2, 
     return meterColor;
 }
 
-float iigo_hairEmission(sampler2D EmissionTex, float2 uv, float emissionValue, float3 positionWS, float time)
+float iigo_hairEmission(float emissionValue, float3 positionWS, float time, float emission)
 {
-    // Samples the emission texture
-    float3 emissionCol = tex2D(EmissionTex, uv).rgb;
-    float  emissionDot = dot(float3(1,1,1), emissionCol);
-
     // scrolling emission
     float  verticalHight = fmod(positionWS.y + time * 2, 30);
     emissionValue = min(smoothstep(0,1, verticalHight), smoothstep(1,0, verticalHight));
 
-    return emissionValue * emissionDot;
+    return emissionValue * emission;
+}
+
+float iigo_voxelEmission(float3 positionOS, float time)
+{
+    float emission = saturate(csimplex3((round((abs(positionOS + 100) * 50)) / 10) + (time / 5)) + 0.5);
+    return emission;
 }
 
 float3 iigo_hairOutline(float4 vertex, float3 normalOS, float OutlineThickness)
