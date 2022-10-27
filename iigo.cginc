@@ -245,11 +245,11 @@ float4 iigo_distortedTexture(float3 position, float time, float3 color1, float3 
 {
     float4 col = float4(0.0, 0.0, 0.0, 1.0);
 
-    col.x = csimplex3(float3(abs(position + time )  + sin(time * 2.0)));
+    col.x = csimplex3(float3(abs(position + time )));
 
-    col.y = csimplex3(float3(abs(position * 0.5) + time + sin(time * 4.0)));
+    col.y = csimplex3(float3(abs(position + time * 0.5 )));
 
-    col.z = csimplex3(float3(abs(position * 2.0) + time + sin(time * 2.0 )));
+    col.z = csimplex3(float3(abs(position + time * 2.0 )));
 
     col.xyz = csimplex3(col);
 
