@@ -55,8 +55,6 @@
         [Header(RED MAT)]
         _MainTexRed ("Texture", 2D) = "white" {}
 
-        _EmissionTexRed ("Emission Texture", 2D) = "white" {}
-
         _EmissionRed ("Emission", Range(0,1)) = 0.2
         _EmissionRedColor ("Emission Color", Color) = (1,0.902,0.98,1)
 
@@ -77,8 +75,6 @@
 
         _MakeupGreen( "Makeup", Range( 0, 1 )) = 0
 
-        //_EmissionMaskGreen ("Emission Mask", 2D) = "black" {}
-
         [NoScaleOffset] _MatCapGreen ("MatCap", 2D) = "white" {}
         _BorderGreen ("Border", Range(0,1)) = 0.3
 
@@ -87,10 +83,6 @@
         _EmissionColorGreen ("Rimlight Color", Color) = (0.2,0.18,0.196,1)
 
         _PanoSphereGreen ("PanoSphere", 2D) = "white" {}
-
-        //_PanoSphereMaskGreen ("PanoSphere Mask", 2D) = "black" {}
-
-        //_RimMaskGreen ("Rim Mask", 2D) = "white" {}
 
         [Space(20)]
 		[Header(BLUE MAT)]
@@ -137,7 +129,7 @@
             sampler2D _MainTexRed;
             float4  _MainTexRed_ST;
 
-            sampler2D _EmissionTexRed;
+            //sampler2D _EmissionTexRed;
 
             float4 _EmissionRedColor;
 
@@ -247,7 +239,6 @@
                 #define iigo_texture_EMISSION _EmissionRed
 
             #define iigo_hairEmission_ENABLED
-                #define iigo_hairEmission_TEXTURE _EmissionTexRed
                 #define iigo_hairEmission_EMISSION _EmissionRed
                 #define iigo_hairEmission_COLOR _EmissionRedColor
 
