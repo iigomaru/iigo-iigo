@@ -20,8 +20,6 @@
 
         _MainMask ("Mask", 2D) = "white" {}
 
-        //[NoScaleOffset] _MainTexEmission ("Texture Emission", 2D) = "black" {}
-
         //============================================================
 
         _Meter( "Meter", Range( 0.0, 1.0 )) = 0.0
@@ -71,11 +69,7 @@
 
             sampler2D _MainMask;
 
-            //sampler2D _MainTexEmission;
-
             float _Meter;
-
-            //float _MeterEmission;
 
             //GREEN
             //=====================================================
@@ -126,11 +120,6 @@
                 #define iigo_texture_TEXTURE _MainTexRed
                 #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainMask, i.uv).g)
 
-            //#define iigo_matCap_ENABLED
-                //#define iigo_matCap_BORDER float(0.3)
-                //#define iigo_matCap_TEXTURE _MatCap
-                //#define iigo_matCap_EMISSION float(0)
-
             #define iigo_meter_ENABLED
                 #define iigo_meter_METERCOLOR float4(0.86, 1.0, 0.98, 1.0)
                 #define iigo_meter_METERCOLOR2 float4(0.69, 0.8, 0.79, 1.0)
@@ -168,11 +157,6 @@
             #define iigo_texture_ENABLED
                 #define iigo_texture_TEXTURE _MainTexRed
                 #define iigo_texture_EMISSION (float(0.2) * tex2D(_MainMask, i.uv).g)
-
-            //#define iigo_matCap_ENABLED
-                //#define iigo_matCap_BORDER float(0.3)
-                //#define iigo_matCap_TEXTURE _MatCap
-                //#define iigo_matCap_EMISSION float(0)
 
             #define iigo_meter_ENABLED
                 #define iigo_meter_METERCOLOR float4(0.86, 1.0, 0.98, 1.0)
