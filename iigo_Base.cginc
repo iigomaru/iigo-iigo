@@ -24,6 +24,25 @@
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
+            float _VRChatMirrorMode;
+            float3 _VRChatMirrorCameraPos;
+
+            float3 iigo_playerCenterCamera()
+            {
+                #if defined(USING_STEREO_MATRICES)
+                float3 PlayerCenterCamera = ( unity_StereoWorldSpaceCameraPos[0] + unity_StereoWorldSpaceCameraPos[1] ) / 2;
+                #else
+                float3 PlayerCenterCamera = _WorldSpaceCameraPos.xyz;
+                #endif
+
+                if (_VRChatMirrorMode > 0)
+                {
+                    PlayerCenterCamera = _VRChatMirrorCameraPos;
+                }
+
+                return PlayerCenterCamera;
+            }
+
             v2f vert(appdata v)
             {
                 v2f o;
@@ -324,7 +343,7 @@
 
                     float3 outlineColor = gt_outline_COLOR * lerp(i.directLight, 1.0, 0.1);
 
-                    applyToonOutline(diffuse, centerUV, i.pos.w, gt_outline_COLOR.a, outlineColor);
+                    applyToonOutline(diffuse, centerUV, float4(outlineColor, gt_outline_COLOR.a), i.pos.w);
 
                     col.rgb = diffuse;
 

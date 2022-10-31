@@ -28,24 +28,6 @@
 #define iigo_global_RIMPOWER      float(0.2)
 #define BLACK                     float4(0.0, 0.0, 0.0, 1.0)
 
-float _VRChatMirrorMode;
-float3 _VRChatMirrorCameraPos;
-
-float3 iigo_playerCenterCamera()
-{
-    #if defined(USING_STEREO_MATRICES)
-    float3 PlayerCenterCamera = ( unity_StereoWorldSpaceCameraPos[0] + unity_StereoWorldSpaceCameraPos[1] ) / 2;
-    #else
-    float3 PlayerCenterCamera = _WorldSpaceCameraPos.xyz;
-    #endif
-
-    if (_VRChatMirrorMode > 0)
-    {
-        PlayerCenterCamera = _VRChatMirrorCameraPos;
-    }
-
-    return PlayerCenterCamera;
-}
 
 float iigo_AA(float2 input)
 {
