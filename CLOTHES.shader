@@ -63,14 +63,14 @@
 		[Header(GREEN MAT)]
 		[Space(5)]
 
-        _EmissionGreen ("Emission", Range(0,1)) = 0.2
+        //_EmissionGreen ("Emission", Range(0,1)) = 0.2
 
-        _ColorGreen ("Color", Color) = (1,1,1,1)
-        _SpeedGreen ("Speed", Range(-100,100)) = 0.3
-        _AlphaGreen ("Maximum Alpha", Range(0,1)) = 0.75
-        _ScaleGreen ("Scale", Float) = 9
+        //_ColorGreen ("Color", Color) = (1,1,1,1)
+        //_SpeedGreen ("Speed", Range(-100,100)) = 0.3
+        //_AlphaGreen ("Maximum Alpha", Range(0,1)) = 0.75
+        //_ScaleGreen ("Scale", Float) = 9
 
-        _EmissionColorGreen ("Rimlight Color", Color) = (0.496,0.447,0.486,1)
+        //_EmissionColorGreen ("Rimlight Color", Color) = (0.496,0.447,0.486,1)
         
         _BeefGreen ("Beef", Range(0,1)) = 0
         _PorkGreen ("Pork", Range(0,1)) = 1
@@ -118,16 +118,16 @@
         //=====================================================
 
             // iigo properties
-            float _EmissionGreen;
-            float4 _EmissionColorGreen;
+            //float _EmissionGreen;
+            //float4 _EmissionColorGreen;
             float _BeefGreen;
             float _PorkGreen;
 
             //declarations
-            float4 _ColorGreen; //
-            float _SpeedGreen; //
-            float _AlphaGreen; //
-            float _ScaleGreen; //
+            //float4 _ColorGreen; //
+            //float _SpeedGreen; //
+            //float _AlphaGreen; //
+            //float _ScaleGreen; //
 
             float4 _HoodieColor1Green;
             float4 _HoodieColor2Green;
@@ -281,17 +281,17 @@
                 #define iigo_distortedTexture_COLOR2 _HoodieColor2Green
 
             #define iigo_hoodie_ENABLED
-                #define iigo_hoodie_SPEED    _SpeedGreen
-                #define iigo_hoodie_SCALE    _ScaleGreen
+                #define iigo_hoodie_SPEED    float(0.3)
+                #define iigo_hoodie_SCALE    float(9.0)
                 #define iigo_hoodie_PORK     _PorkGreen
                 #define iigo_hoodie_BEEF     _BeefGreen
-                #define iigo_hoodie_ALPHA    _AlphaGreen
-                #define iigo_hoodie_COLOR    _ColorGreen
-                #define iigo_hoodie_EMISSION _EmissionGreen
+                #define iigo_hoodie_ALPHA    float(0.75)
+                #define iigo_hoodie_COLOR    float4(1.0, 1.0, 1.0, 1.0)
+                #define iigo_hoodie_EMISSION float(0.10)
 
             #define iigo_rimlight_ENABLED
-                #define iigo_rimlight_POWER  0.2
-                #define iigo_rimlight_COLOR  _EmissionColorGreen
+                #define iigo_rimlight_POWER  iigo_global_RIMPOWER
+                #define iigo_rimlight_COLOR  iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
                 #define gt_outline_COLOR BLACK
@@ -324,17 +324,17 @@
                 #define iigo_distortedTexture_COLOR2 _HoodieColor2Green
 
             #define iigo_hoodie_ENABLED
-                #define iigo_hoodie_SPEED    _SpeedGreen
-                #define iigo_hoodie_SCALE    _ScaleGreen
+                #define iigo_hoodie_SPEED    float(0.3)
+                #define iigo_hoodie_SCALE    float(9.0)
                 #define iigo_hoodie_PORK     _PorkGreen
                 #define iigo_hoodie_BEEF     _BeefGreen
-                #define iigo_hoodie_ALPHA    _AlphaGreen
-                #define iigo_hoodie_COLOR    _ColorGreen
-                #define iigo_hoodie_EMISSION _EmissionGreen
+                #define iigo_hoodie_ALPHA    float(0.75)
+                #define iigo_hoodie_COLOR    float4(1.0, 1.0, 1.0, 1.0)
+                #define iigo_hoodie_EMISSION float(0.10)
 
             #define iigo_rimlight_ENABLED
-                #define iigo_rimlight_POWER  0.2
-                #define iigo_rimlight_COLOR  _EmissionColorGreen
+                #define iigo_rimlight_POWER  iigo_global_RIMPOWER
+                #define iigo_rimlight_COLOR  iigo_global_RIMLIGHTCOLOR
 
             #define gt_outline_ENABLED
                 #define gt_outline_COLOR BLACK
