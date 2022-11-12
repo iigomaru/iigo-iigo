@@ -22,6 +22,7 @@
     	_DepthOffsetTex ("Depth Offset Texture", Color) = (0,0,0,0)
         _LocalEqualizeThreshold ("Depth Local Adaptive Equalization Threshold", Range(0.01, .1)) = .02
         [ToggleUI] _DepthSilhouetteMultiplier ("Depth Silhouette", Float) = 1
+        _DepthId ("Depth ID", Range(0,.99)) = 0.69
 
         [Header(Depth Outline Gradient)]
         _DepthGradientMin ("Depth Outline Gradient Min", Range(0, 1)) = 0
